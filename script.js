@@ -34,18 +34,15 @@ const createBigram = string => {
   let duo;
   let bigrams = {};
   string = string.split(/[\s\n]|[^a-z0-9-']/i).filter(str => str.length > 0);
-
   // For loop to create frequency counter
   for (let idx = 0; idx < string.length - 1; idx++) {
     duo = string[idx].toLowerCase() + " " + string[idx + 1].toLowerCase(); // ignore casing
     bigrams[duo] = (bigrams[duo] || 0) + 1; // increase counter
   }
-
   let arr = [];
   for (const bigram in bigrams) {
     arr.push({ couple: bigram, frequency: bigrams[bigram] });
   }
-
   return arr;
 }
 
@@ -56,6 +53,7 @@ const updateStats = () => {
   const words = document.querySelector('.words');
   const paragraphs = document.querySelector('.paragraphs');
   const sentences = document.querySelector('.sentences');
+
   textArea.addEventListener('input', (e) => {
     const { value } = e.target;
     characters.innerText = characterCount(value);
@@ -67,10 +65,10 @@ const updateStats = () => {
 }
 
 genBigrams.addEventListener('click', () => {
-  modalBg.classList.add('bg-active');
   const bigrams = createBigram(textArea.value);
   const totalBigrams = document.querySelector('.total-bigrams');
-  
+
+  modalBg.classList.add('bg-active');
   bigrams.sort((a, b) => b.frequency - a.frequency);
   totalBigrams.innerText = bigrams.length;
   
