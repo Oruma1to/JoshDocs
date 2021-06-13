@@ -6,6 +6,12 @@ const words = document.querySelector('.words')
 const paragraphs = document.querySelector('.paragraphs')
 const sentences = document.querySelector('.sentences')
 const genBigrams = document.querySelector('#gen-bigram')
+const allBigrams = document.querySelectorAll('.bigram')
+const modalBg = document.querySelector('.modal-bg')
+const modalClose = document.querySelector('.modal-close')
+const modalBigram = document.querySelector('.modal-bigram')
+const modal = document.querySelector('.modal')
+
 
 // Count includes white spaces, simple length of entered string.
 const characterCount = string => {
@@ -32,11 +38,7 @@ const paragraphCount = string => {
   return string.split(/\n/g).filter(paragraph => paragraph.length > 0).length
 }
 
-
-
 const createBigram = string => {
-  if (string.split(/[\s\n]/).length === 2) return {bigram: string, count: 1}
-
   let duo;
   let bigrams = {}
   string = string.split(/[\s\n\.]/).filter(str => str.length > 0)
@@ -49,11 +51,12 @@ const createBigram = string => {
 
   let arr = [];
   for (const bigram in bigrams) {
-    arr.push({ bigram: bigram, frequency: bigrams[bigram] })
+    arr.push({ couple: bigram, frequency: bigrams[bigram] })
   }
 
   return arr;
 }
+
 
 const updateStats = () => {
   textArea.addEventListener('input', (e) => {
@@ -62,13 +65,29 @@ const updateStats = () => {
     charactersNoWs.innerText = characterCountNoWs(value)
     sentences.innerText = sentenceCount(value)
     words.innerText = wordCount(value)
-    paragraphs.innerText= paragraphCount(value)
+    paragraphs.innerText = paragraphCount(value)
   })
 }
 
+
+
 genBigrams.addEventListener('click', () => {
-  console.log(createBigram(textArea.value))
+  modalBg.classList.add('bg-active')
+  let bigrams = createBigram(textArea.value)
+  bigrams.forEach(bigram => {
+    let newP = document.createElement('li')
+    let bigramData = document.createTextNode(`${bigram.couple}: ${bigram.frequency}`)
+    newP.appendChild(bigramData)
+    newP.classList.add('bigram')
+    modal.appendChild(newP)
+  }) 
 })
+
+modalClose.addEventListener('click', () => {
+  modalBg.classList.remove('bg-active')
+})
+
+//TODO - remove children from dom when modal is closed
 
 // let autoSave = setInterval(() => {
 //   localStorage.setItem('textArea', JSON.stringify(textArea.value))
