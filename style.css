@@ -1,3 +1,7 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #f3f3f3;
   margin: 0;
@@ -11,6 +15,10 @@ body {
 }
 
 .stats {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  background-color: #f3f3f3;
   height: 100px;
   width: 100%;
   box-shadow: 0 0 5px 0 rgba(0,0,0,.5);
@@ -28,11 +36,16 @@ body {
 .stats li {
   list-style-type: none;
   margin: 0 20px;
+  font-size: 20px;
 }
 
 .editor {
-  width: 8.5in;
-  min-height: 11in;
+  resize: none;
+  border: none;
+  font-size: 20px;
+  min-width: 8.5in;
+  min-height: 7in;
+  max-height: 7in;
   padding: 1in;
   margin: 1rem;
   box-shadow: 0 0 5px 0 rgba(0,0,0,.5);
