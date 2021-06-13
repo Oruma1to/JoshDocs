@@ -34,7 +34,7 @@ body {
 
 .stats li {
   list-style-type: none;
-  margin: 0 20px;
+  margin: 0 25px;
   font-size: 20px;
 }
 
@@ -43,6 +43,7 @@ body {
   background-color: #3484F0;
   color: white;
   padding: 17px;
+  margin-left: 10px;
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;

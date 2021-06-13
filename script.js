@@ -5,6 +5,7 @@ const charactersNoWs = document.querySelector('.characters-nows')
 const words = document.querySelector('.words')
 const paragraphs = document.querySelector('.paragraphs')
 const sentences = document.querySelector('.sentences')
+const genBigrams = document.querySelector('#gen-bigram')
 
 // Count includes white spaces, simple length of entered string.
 const characterCount = string => {
@@ -28,15 +29,17 @@ const sentenceCount = string => {
 
 // Counts sentences split by paragraph. I run a simple split by regex line break, then i filter the array of results to only include paragraphs with lengths greater than 0 in order to ignore empty spaces being counted as a paragraph.
 const paragraphCount = string => {
-  return string.split(/\n/g).filter(paragraph => paragraph.length > 0)
+  return string.split(/\n/g).filter(paragraph => paragraph.length > 0).length
 }
 
+
+
 const createBigram = string => {
-  if (string.split(' ').length === 2) return {bigram: string, count: 1}
+  if (string.split(/[\s\n]/).length === 2) return {bigram: string, count: 1}
 
   let duo;
   let bigrams = {}
-  string = string.split(' ')
+  string = string.split(/[\s\n\.]/).filter(str => str.length > 0)
 
   // For loop to create frequency counter
   for (let idx = 0; idx < string.length - 1; idx++) {
@@ -59,11 +62,13 @@ const updateStats = () => {
     charactersNoWs.innerText = characterCountNoWs(value)
     sentences.innerText = sentenceCount(value)
     words.innerText = wordCount(value)
-    // paragraphs.innerText= paragraphCount(value)
-    console.log(paragraphCount(value))
+    paragraphs.innerText= paragraphCount(value)
   })
 }
 
+genBigrams.addEventListener('click', () => {
+  console.log(createBigram(textArea.value))
+})
 
 // let autoSave = setInterval(() => {
 //   localStorage.setItem('textArea', JSON.stringify(textArea.value))
