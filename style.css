@@ -95,8 +95,18 @@ body {
   cursor: pointer;
 }
 
-.modal li {
+.bigram {
   list-style: none;
+  margin: 2px 5px;
+}
+
+#bigrams {
+  width: 90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow-y: scroll;
 }
 
 .modal-close {

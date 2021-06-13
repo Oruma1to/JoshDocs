@@ -10,7 +10,7 @@ const allBigrams = document.querySelectorAll('.bigram')
 const modalBg = document.querySelector('.modal-bg')
 const modalClose = document.querySelector('.modal-close')
 const modalBigram = document.querySelector('.modal-bigram')
-const modal = document.querySelector('.modal')
+const modalBigrams = document.querySelector('#bigrams')
 
 
 // Count includes white spaces, simple length of entered string.
@@ -41,7 +41,7 @@ const paragraphCount = string => {
 const createBigram = string => {
   let duo;
   let bigrams = {}
-  string = string.split(/[\s\n\.]/).filter(str => str.length > 0)
+  string = string.split(/[\s\n]|[^a-z0-9-']/i).filter(str => str.length > 0)
 
   // For loop to create frequency counter
   for (let idx = 0; idx < string.length - 1; idx++) {
@@ -74,20 +74,24 @@ const updateStats = () => {
 genBigrams.addEventListener('click', () => {
   modalBg.classList.add('bg-active')
   let bigrams = createBigram(textArea.value)
+  bigrams.sort((a,b)=> b.frequency - a.frequency)
+  const totalBigrams = document.querySelector('.total-bigrams')
+  totalBigrams.innerText = bigrams.length
   bigrams.forEach(bigram => {
     let newP = document.createElement('li')
     let bigramData = document.createTextNode(`${bigram.couple}: ${bigram.frequency}`)
     newP.appendChild(bigramData)
     newP.classList.add('bigram')
-    modal.appendChild(newP)
-  }) 
+    modalBigrams.appendChild(newP)
+  })
 })
 
 modalClose.addEventListener('click', () => {
   modalBg.classList.remove('bg-active')
+  modalBigrams.innerHTML= ''
 })
 
-//TODO - remove children from dom when modal is closed
+//TODO - save to local storage
 
 // let autoSave = setInterval(() => {
 //   localStorage.setItem('textArea', JSON.stringify(textArea.value))
