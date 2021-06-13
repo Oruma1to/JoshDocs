@@ -38,6 +38,10 @@ body {
   font-size: 20px;
 }
 
+.stats ul span {
+  color: green;
+}
+
 #gen-bigram {
   border: none;
   background-color: #3484F0;
@@ -98,6 +102,7 @@ body {
 .bigram {
   list-style: none;
   margin: 2px 5px;
+  color: blue;
 }
 
 #bigrams {
@@ -107,6 +112,10 @@ body {
   flex-direction: column;
   flex-wrap: wrap;
   overflow-y: scroll;
+}
+
+.total-bigrams {
+  color: green
 }
 
 .modal-close {
