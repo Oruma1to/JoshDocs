@@ -18,7 +18,7 @@ const characterCountNoWs = body => {
 
 // Counts words split by spaces, on google docs hyphenated words are counted as 1. Escapes empty strings.
 const wordCount = body => {
-  return body.split(/\s|[^a-z]/i).filter(word => word.length > 0).length;
+  return body.split(/\s|[^a-z0-9]/i).filter(word => word.length > 0).length;
 }
 
 // Counts sentences split by periods, if the period is at the end of the paragraph it adds a space for some reason. Escapes empty strings.
