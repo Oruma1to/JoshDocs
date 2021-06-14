@@ -1,9 +1,14 @@
-// const savedText = localStorage.getItem('textArea')
+// const savedText = JSON.parse(localStorage.getItem('textArea'))
 const textArea = document.querySelector('.editor');
-const genBigrams = document.querySelector('#gen-bigram');
+const genBigrams = document.getElementById('gen-bigram');
 const modalBg = document.querySelector('.modal-bg');
 const modalClose = document.querySelector('.modal-close');
-const modalBigrams = document.querySelector('#bigrams');
+const bigramsContainer = document.getElementById('bigrams');
+const singleBigrams = document.querySelectorAll('bigram')
+const sortDropDown = document.getElementById('sort')
+
+
+// if(savedText) textArea.innerText = savedText
 
 // Count includes white spaces, simple length of entered string.
 const characterCount = string => {
@@ -30,21 +35,30 @@ const paragraphCount = string => {
   return string.split(/\n/g).filter(paragraph => paragraph.length > 0).length;
 }
 
-const createBigram = string => {
+const createBigrams = string => {
+  string = string.split(/[\s\n]|[^a-z0-9-']/i).filter(str => str.length > 0);
   let duo;
   let bigrams = {};
-  string = string.split(/[\s\n]|[^a-z0-9-']/i).filter(str => str.length > 0);
+  let arr = [];
   // For loop to create frequency counter
   for (let idx = 0; idx < string.length - 1; idx++) {
     duo = string[idx].toLowerCase() + " " + string[idx + 1].toLowerCase(); // ignore casing
     bigrams[duo] = (bigrams[duo] || 0) + 1; // increase counter
   }
-  let arr = [];
+
   for (const bigram in bigrams) {
     arr.push({ couple: bigram, frequency: bigrams[bigram] });
   }
   return arr;
 }
+
+
+// const updateLS = () => {
+//   const docText = document.querySelector('textarea')
+//   localStorage.setItem('doc', JSON.stringify(docText))
+// }
+
+// setInterval(() => updateLS(), 2000)
 
 
 const updateStats = () => {
@@ -61,30 +75,48 @@ const updateStats = () => {
     sentences.innerText = sentenceCount(value);
     words.innerText = wordCount(value);
     paragraphs.innerText = paragraphCount(value);
+    // savedText.innerText = value
   })
 }
 
-genBigrams.addEventListener('click', () => {
-  const bigrams = createBigram(textArea.value);
-  const totalBigrams = document.querySelector('.total-bigrams');
+const createBigram = (node) => {
+  let newP = document.createElement('li');
+  let bigramName = document.createTextNode(`${node.couple}: ${node.frequency}`);
+  newP.appendChild(bigramName);
+  newP.classList.add('bigram');
+  bigramsContainer.appendChild(newP);
+}
 
+genBigrams.addEventListener('click', () => {
+  const bigrams = createBigrams(textArea.value);
+  const totalBigrams = document.querySelector('.total-bigrams');
   modalBg.classList.add('bg-active');
-  bigrams.sort((a, b) => b.frequency - a.frequency);
   totalBigrams.innerText = bigrams.length;
-  
   bigrams.forEach(bigram => {
-    let newP = document.createElement('li');
-    let bigramData = document.createTextNode(`${bigram.couple}: ${bigram.frequency}`);
-    newP.appendChild(bigramData);
-    newP.classList.add('bigram');
-    modalBigrams.appendChild(newP);
+    createBigram(bigram)
   })
 })
 
-modalClose.addEventListener('click', () => {
-  modalBg.classList.remove('bg-active');
-  modalBigrams.innerHTML = '';
+sortDropDown.addEventListener('change', () => {
+  const parentNode = bigramsContainer;
+  const newChildren = createBigrams(textArea.value);
+  if (sortDropDown.value === 'sort-ascending') {
+    while (parentNode.firstChild) parentNode.removeChild(parentNode.firstChild)
+    newChildren.sort((a, b) => a.frequency - b.frequency)
+    newChildren.forEach(node => createBigram(node))
+  } else if (sortDropDown.value === 'sort-descending') {
+    while (parentNode.firstChild) parentNode.removeChild(parentNode.firstChild)
+    newChildren.sort((a, b) => b.frequency - a.frequency)
+    newChildren.forEach(node => createBigram(node))
+  }
 })
+
+  modalClose.addEventListener('click', () => {
+    modalBg.classList.remove('bg-active');
+    bigramsContainer.innerHTML = '';
+  })
+
+
 
 //TODO - save to local storage
 

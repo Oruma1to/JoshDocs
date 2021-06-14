@@ -57,9 +57,8 @@ body {
   resize: none;
   border: none;
   font-size: 20px;
-  min-width: 8.5in;
-  min-height: 7in;
-  max-height: 7in;
+  width: 8.5in;
+  height: 11in;
   padding: 1in;
   margin: 1rem;
   box-shadow: 0 0 5px 0 rgba(0,0,0,.5);
@@ -93,10 +92,14 @@ body {
   width: 60%;
   height: 70%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
-  cursor: pointer;
+}
+
+.modal label {
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .bigram {
@@ -105,9 +108,19 @@ body {
   color: blue;
 }
 
+#sort {
+  border: none;
+  background-color: #3484F0;
+  color: white;
+  padding:5px 7px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 #bigrams {
   width: 90%;
-  height: 80%;
+  height: 75%;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -123,6 +136,7 @@ body {
   top: 10px;
   right: 10px;
   font-weight: bold;
+  color: red;
 }
 
 

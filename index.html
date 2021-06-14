@@ -13,11 +13,11 @@
   <div class="container">
     <div class='stats'>
       <ul>
-        <li >Characters: <span class="characters">0</span></li>
-        <li >Characters (no whitespace): <span class="characters-nows">0</span></li>
-        <li >Words: <span class="words">0</span></li>
-        <li >Paragraphs: <span class="paragraphs">0</span></li>
-        <li >Sentences: <span class="sentences">0</span></li>
+        <li>Characters: <span class="characters">0</span></li>
+        <li>Characters (no whitespace): <span class="characters-nows">0</span></li>
+        <li>Words: <span class="words">0</span></li>
+        <li>Paragraphs: <span class="paragraphs">0</span></li>
+        <li>Sentences: <span class="sentences">0</span></li>
       </ul>
       <button id="gen-bigram">Generate Bigrams</button>
     </div>
@@ -25,6 +25,11 @@
   </div>
   <div class="modal-bg">
     <div class="modal">
+      <label for="sort">Sort by:</label>
+      <select name="sort" id="sort">
+        <option class="bigram-sort" value="sort-descending">Most Frequent</option>
+        <option class="bigram-sort" value="sort-ascending">Least Frequent</option>
+      </select>
       <span class="modal-close">X</span>
       <h3>Total number of bigrams: <span class="total-bigrams">0</span></h3>
       <div id='bigrams'></div>
