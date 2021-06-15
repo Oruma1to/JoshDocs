@@ -124,7 +124,7 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 .total-bigrams {
@@ -137,6 +137,7 @@ body {
   right: 10px;
   font-weight: bold;
   color: red;
+  cursor: pointer;
 }
 
 
