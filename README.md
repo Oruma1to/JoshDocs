@@ -6,6 +6,10 @@ So for this particular challenge I decided to employ the word count features tha
 ## Dependancies
 None! this was done purely in vanilla Javascript. I chose to do this as to take the most organic programattic approach I could take. There are plenty of frameworks out there that would just leave it to me to plug in the algos but I enjoyed building it out myself.
 
+## How to start
+Simply download the repository, once in the folder of the repository open the index.html file in your browser and it should run.
+Note - The css was tested on chrome, other browsers may or may not have variant styling issues.
+
 ## Project MVP - As requested by the take home coding challenge
 * Character Count - returns length of all characters using a simple length property.
 * Word Count - word count takes the body of text and seperates them by any character that is not alpha-numeric or a hyphen/apostrophe since both can be used to complete words in the english language, all using a regular expression
