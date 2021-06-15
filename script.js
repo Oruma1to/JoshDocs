@@ -1,9 +1,8 @@
 const textArea = document.querySelector('.editor');
-const genBigrams = document.getElementById('gen-bigram');
 const modalBg = document.querySelector('.modal-bg');
 const modalClose = document.querySelector('.modal-close');
+const generateBigrams = document.getElementById('gen-bigram');
 const bigramsContainer = document.getElementById('bigrams');
-const singleBigrams = document.querySelectorAll('bigram')
 const sortDropDown = document.getElementById('sort')
 
 // Sort Functions
@@ -47,7 +46,6 @@ const updateStats = () => {
   const stats = document.querySelector('.stats')
   let selectedText = '';
 
-
   const listenerFunction = (e) => {
     const { value } = e.target;
     characters.innerText = characterCount(value);
@@ -60,28 +58,27 @@ const updateStats = () => {
 
   textArea.addEventListener('mouseup', (e) => listenerFunction(e))
   textArea.addEventListener('input', (e) => listenerFunction(e))
-  
   document.addEventListener('mouseup', (e) => {
     if ((e.clientY > 119 && e.clientY < 600) && document.getSelection().toString().length > 0) {
-      selectedText = document.getSelection().toString()
+      selectedText = document.getSelection().toString();
       characters.innerText = characterCount(selectedText);
       charactersNoWs.innerText = characterCountNoWs(selectedText);
       sentences.innerText = sentenceCount(selectedText);
       words.innerText = wordCount(selectedText);
       paragraphs.innerText = paragraphCount(selectedText);
+
       let msgNode = document.createElement('h3')
       let highlightMsg = document.createTextNode('Highlighted');
       msgNode.appendChild(highlightMsg)
       if (selectedText.length > 0 && stats.firstChild.nodeName !== 'H3') {
-        stats.insertBefore(msgNode, stats.firstChild)
-        console.log(stats.firstChild.nodeName)
+        stats.insertBefore(msgNode, stats.firstChild);
       }
     }
   })
 }
 
 // All modal functions
-const createBigram = (node) => {
+const createBigramEl = (node) => {
   let newListEl = document.createElement('li');
   let bigramName = document.createTextNode(`${node.couple}: ${node.frequency}`);
   newListEl.appendChild(bigramName);
@@ -89,13 +86,19 @@ const createBigram = (node) => {
   bigramsContainer.appendChild(newListEl);
 }
 
-genBigrams.addEventListener('click', () => {
+generateBigrams.addEventListener('click', () => {
   const bigrams = createBigrams(textArea.value);
   const totalBigrams = document.querySelector('.total-bigrams');
   modalBg.classList.add('bg-active');
   totalBigrams.innerText = bigrams.length;
+  if (bigrams.length === 0) {
+    let emptyMsgEl = document.createElement('h3');
+    let emptyMsg = document.createTextNode('Type in at least 2 words to get started!')
+    emptyMsgEl.appendChild(emptyMsg)
+    bigramsContainer.appendChild(emptyMsgEl)
+  }
   bigrams.forEach(bigram => {
-    createBigram(bigram)
+    createBigramEl(bigram)
   })
 })
 
@@ -105,11 +108,11 @@ sortDropDown.addEventListener('change', () => {
   if (sortDropDown.value === 'sort-ascending') {
     while (parentNode.firstChild) parentNode.removeChild(parentNode.firstChild);
     newChildren.sort((a, b) => a.frequency - b.frequency);
-    newChildren.forEach(node => createBigram(node));
+    newChildren.forEach(node => createBigramEl(node));
   } else if (sortDropDown.value === 'sort-descending') {
     while (parentNode.firstChild) parentNode.removeChild(parentNode.firstChild);
     newChildren.sort((a, b) => b.frequency - a.frequency);
-    newChildren.forEach(node => createBigram(node));
+    newChildren.forEach(node => createBigramEl(node));
   }
 })
 

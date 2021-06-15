@@ -19,17 +19,25 @@ body {
   top: 0;
   z-index: 0;
   background-color: #f3f3f3;
-  height: 100px;
+  height: 120px;
   width: 100%;
   box-shadow: 0 0 5px 0 rgba(0,0,0,.5);
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
+}
+
+.stats h3 {
+  margin: 0;
+  margin-bottom: -40px;
+  color: #3484F0
 }
 
 .stats ul {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .stats li {
@@ -124,7 +132,11 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  /* overflow-y: scroll; */
+}
+
+#bigrams h3 {
+  text-align: center;
+  margin: auto;
 }
 
 .total-bigrams {
