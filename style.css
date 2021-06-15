@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  --google-doc-blue: #3484f0
+}
+
 body {
   background-color: #f3f3f3;
   margin: 0;
@@ -31,7 +35,7 @@ body {
 .stats h3 {
   margin: 0;
   margin-bottom: -40px;
-  color: #3484F0
+  color: var(--google-doc-blue)
 }
 
 .stats ul {
@@ -43,7 +47,7 @@ body {
 .stats li {
   list-style-type: none;
   margin: 0 25px;
-  font-size: 20px;
+  font-size: 1.2rem;
 }
 
 .stats ul span {
@@ -52,22 +56,27 @@ body {
 
 #gen-bigram {
   border: none;
-  background-color: #3484F0;
+  background-color: var(--google-doc-blue);
   color: white;
   padding: 17px;
   margin-left: 10px;
   border-radius: 6px;
   font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
+}
+
+.ja-sign {
+  font-size: 18px;
 }
 
 .editor {
   resize: none;
   border: none;
-  font-size: 20px;
+  font-size: 1.2rem;
   width: 8.5in;
   height: 11in;
-  padding: 1in;
+  padding: 96px;
   margin: 1rem;
   box-shadow: 0 0 5px 0 rgba(0,0,0,.5);
   background-color: white;
@@ -98,27 +107,24 @@ body {
   position: relative;
   background-color: white;
   width: 60%;
+  max-width: 600px;
   height: 70%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
+  border-radius: 10px;
 }
 
 .modal label {
   font-weight: bold;
-  font-size: 18px;
-}
-
-.bigram {
-  list-style: none;
-  margin: 2px 5px;
-  color: blue;
+  font-size: 1.2rem;
+  margin-top: 15px;
 }
 
 #sort {
   border: none;
-  background-color: #3484F0;
+  background-color: var(--google-doc-blue);
   color: white;
   padding:5px 7px;
   border-radius: 6px;
@@ -126,29 +132,37 @@ body {
   cursor: pointer;
 }
 
+.bigram {
+  list-style: none;
+  margin: 2px 5px;
+  color: var(--google-doc-blue);
+}
+
 #bigrams {
   width: 90%;
-  height: 75%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  overflow-y: hidden;
 }
 
 #bigrams h3 {
   text-align: center;
-  margin: auto;
+  margin-top: 80px;
 }
 
 .total-bigrams {
-  color: green
+  color: green;
 }
 
 .modal-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 20px;
   font-weight: bold;
-  color: red;
+  color: gray;
+  font-size: 20px;
   cursor: pointer;
 }
 
@@ -174,3 +188,24 @@ body {
     display: none;
   }
 }
+
+@media (max-width: 1095px) {
+  html {
+    font-size: 14px;
+  }
+  .stats ul li{ 
+    margin: 10px;
+  }
+  .stats ul li{
+    text-align: center;
+  }
+  #gen-bigram {
+    padding: 10px
+  }
+
+  .editor {
+    width: 80%;
+    padding: 50px;
+  }
+}
+
